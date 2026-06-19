@@ -9,6 +9,27 @@ export const metadata: Metadata = {
   title: "Quản Lý Lịch Trực Bệnh Viện",
   description: "Hệ thống quản lý lịch trực bác sĩ hiện đại",
   manifest: "/manifest.json",
+    openGraph: {
+    title: "Quản Lý Lịch Trực Bệnh Viện",
+    description: "Hệ thống quản lý lịch trực bác sĩ hiện đại",
+    siteName: "Medischedule",
+    images: [
+      {
+        url: "/thumbnail.png", // Next.js sẽ tự động trỏ tới file thumbnail.png trong thư mục public
+        width: 1200,
+        height: 630,
+        alt: "Quản Lý Lịch Trực Bệnh Viện Thumbnail",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Quản Lý Lịch Trực Bệnh Viện",
+    description: "Hệ thống quản lý lịch trực bác sĩ hiện đại",
+    images: ["/thumbnail.png"],
+  },
 };
 
 export default function RootLayout({

@@ -7,11 +7,11 @@ import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Quản Lý Lịch Trực Bệnh Viện",
-  description: "Hệ thống quản lý lịch trực bác sĩ hiện đại",
+  description: "Quản Lý Lịch Trực Bệnh Viện Hữu nghị Việt Đức - Cơ Sở Ngọc Hồi",
   manifest: "/manifest.json",
     openGraph: {
-    title: "Quản Lý Lịch Trực Bệnh Viện",
-    description: "Hệ thống quản lý lịch trực bác sĩ hiện đại",
+    title: "Quản Lý Lịch Trực Bệnh Viện Hữu nghị Việt Đức - Cơ Sở Ngọc Hồi",
+    description: "Hệ thống quản lý lịch trực bác sĩ hiện đại, cập nhật, thuận tiện",
     siteName: "Medischedule",
     images: [
       {

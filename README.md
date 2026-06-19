@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quản Lý Lịch Trực Bác Sĩ
 
-## Getting Started
+Hệ thống quản lý lịch trực bệnh viện toàn diện, xây dựng bằng Next.js 15, Tailwind CSS, Shadcn/UI, và Google Sheets làm cơ sở dữ liệu.
 
-First, run the development server:
+## Tính năng nổi bật
 
+- 🏥 **Quản lý đa khoa**: Hỗ trợ chia khoa, quản lý danh sách bác sĩ chuyên nghiệp.
+- 📅 **Lịch trực thông minh**: Xem lịch trực theo ngày, tháng.
+- 🎨 **Giao diện hiện đại**: Sử dụng Tailwind CSS và Shadcn/UI (Hỗ trợ Dark mode).
+- ⚡ **PWA**: Có thể cài đặt trên điện thoại, offline cache.
+- 🔒 **Bảo mật**: Trang quản trị có mật khẩu bảo vệ.
+- 📊 **Cơ sở dữ liệu linh hoạt**: Sử dụng Google Sheets API, cho phép cập nhật trực tiếp từ file Excel/Sheets.
+
+## Hướng dẫn cài đặt
+
+### 1. Clone repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/cal-app.git
+cd cal-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Cài đặt dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Cấu hình Google Sheets
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Hệ thống lưu dữ liệu bằng Google Sheets API. Hãy thực hiện theo các bước sau:
 
-## Learn More
+1. Vào [Google Cloud Console](https://console.cloud.google.com/), tạo một project mới.
+2. Bật **Google Sheets API**.
+3. Tạo **Service Account**, tạo khóa (key) định dạng JSON và tải về.
+4. Tạo một Google Spreadsheet. Share quyền Editor cho email của Service Account (`client_email` trong file JSON).
+5. Đổi tên các Sheet (Tab) thành: `Doctors`, `Departments`, `Schedules`.
+   - **Doctors** header: `id`, `name`, `department`, `title`
+   - **Departments** header: `id`, `name`
+   - **Schedules** header: `id`, `date`, `departmentId`, `doctorIds` (Cách nhau bằng dấu phẩy)
+6. Lấy ID của file Google Sheet trên URL (vd: `1abcxyz...`).
 
-To learn more about Next.js, take a look at the following resources:
+Đổi tên file `.env.example` thành `.env` (hoặc `.env.local` nếu test local) và điền các thông tin:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
+GOOGLE_SHEETS_CLIENT_EMAIL="your-service-account@...gserviceaccount.com"
+GOOGLE_SHEETS_SPREADSHEET_ID="your-spreadsheet-id"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ADMIN_PASSWORD="password_cua_ban"
+```
 
-## Deploy on Vercel
+### 4. Chạy Local (Môi trường phát triển)
+```bash
+npm run dev
+```
+Mở [http://localhost:3000](http://localhost:3000) trên trình duyệt.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Kiểm thử (Testing)
+```bash
+# Unit & Component test (Vitest)
+npm run test
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# E2E test (Playwright)
+npm run test:e2e
+```
+
+### 6. Deploy lên Vercel
+
+1. Đẩy code lên GitHub.
+2. Vào [Vercel](https://vercel.com/), chọn import project từ GitHub.
+3. Trong phần **Environment Variables**, điền đầy đủ các biến môi trường giống như trong file `.env`.
+4. Nhấn **Deploy**.
+
+*Lưu ý: Nếu không cấu hình biến môi trường Google Sheets, ứng dụng sẽ dùng dữ liệu giả lập (fallback JSON) từ thư mục `data/`.*
